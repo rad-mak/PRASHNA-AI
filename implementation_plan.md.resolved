@@ -1,0 +1,128 @@
+# SmartQuizzer — Adaptive AI Quiz Generator
+
+**FastAPI** backend + **Vite React** frontend + **Supabase** + **OpenAI GPT** + advanced ML pipeline.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **API Keys Required:**
+> - **OpenAI API Key** (`sk-...`)
+> - **Supabase Project URL** (`https://xxx.supabase.co`)
+> - **Supabase Anon Key** (`eyJ...`)
+
+> [!WARNING]
+> **Frontend Hard Rules:**
+> - ❌ **NO icon libraries** (no FontAwesome, Lucide, Heroicons, etc.) — use CSS shapes, Unicode characters, or hand-styled text labels only
+> - ❌ **NO glow/neon effects** — no `box-shadow` glows, no neon outlines, no text-shadow glows
+> - ❌ **NO blue/purple AI theme** — warm organic palette only
+> - ✅ Animations via CSS `@keyframes` + `transition` only — subtle, physical (lift, slide, fade)
+> - ✅ Both light mode (default) + dark mode with smooth toggle
+
+---
+
+## AI/ML/DL Features — Frontend + Backend Map
+
+Each feature has **backend processing** AND **frontend visualization**:
+
+| # | Feature | Backend (Python) | Frontend (React) |
+|---|---------|-----------------|-------------------|
+| 1 | **NLP Concept Extraction** | spaCy NER extracts entities/terms from content | Highlighted text display with extracted concepts as tags |
+| 2 | **Smart Distractor Generation** | Sentence Transformers rank semantic similarity of wrong answers | Distractor quality score shown per MCQ option |
+| 3 | **Text Complexity Scoring** | Flesch-Kincaid + vocabulary depth + sentence length → score | Animated complexity meter (CSS bar) on content upload |
+| 4 | **BERTopic Topic Modeling** | Auto-cluster content into topic groups | Interactive topic chips that filter quiz generation |
+| 5 | **Knowledge Graph** | NLP extracts concept→concept relationships as nodes/edges JSON | D3.js force-directed graph, draggable nodes, click to explore |
+| 6 | **Performance Prediction** | Scikit-learn model: historical accuracy → predicted score per topic | Predicted accuracy bar per topic on dashboard |
+| 7 | **Weak Area Detection** | Pattern analysis: error frequency × topic × difficulty | Weak-area cards with improvement suggestions |
+| 8 | **Content Summarization** | GPT generates TL;DR + key takeaways | Summary card with expandable sections before quiz |
+| 9 | **Topic Cluster Visualization** | t-SNE/UMAP on sentence embeddings → 2D coordinates | Plotly.js interactive scatter plot, hover for details |
+| 10 | **Elo Rating System** | Chess-style rating update for users AND questions | Elo badge on profile + rating change animation on results |
+
+---
+
+## Backend — FastAPI (`backend/`)
+
+#### Core Files
+| File | Purpose |
+|------|---------|
+| [main.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/main.py) | FastAPI app, CORS, router mounts |
+| [config.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/config.py) | Env loading (OPENAI_API_KEY, SUPABASE_URL, etc.) |
+| [database.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/database.py) | Supabase client init |
+| [models.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/models.py) | Pydantic models for all entities |
+| [schemas.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/schemas.py) | Request/response schemas |
+
+#### Route Files
+| Route | Endpoints |
+|-------|-----------|
+| [routes/auth.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/routes/auth.py) | register, login, get profile, update profile |
+| [routes/content.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/routes/content.py) | upload (text/PDF), fetch URL, list, get, delete |
+| [routes/quiz.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/routes/quiz.py) | generate quiz, list, get, submit answers, get results |
+| [routes/analytics.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/routes/analytics.py) | performance data, topic stats, predictions, knowledge graph data |
+| [routes/admin.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/routes/admin.py) | user list, platform analytics, question moderation, flagging |
+
+#### AI/ML Service Files
+| Service | What It Does |
+|---------|-------------|
+| [services/content_processor.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/services/content_processor.py) | PDF extraction, URL scraping, spaCy NER, text chunking, readability scoring |
+| [services/question_generator.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/services/question_generator.py) | GPT question generation (4 types), Sentence Transformer distractor ranking |
+| [services/adaptive_engine.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/services/adaptive_engine.py) | Elo rating updates, difficulty matching, session adaptation |
+| [services/ml_engine.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/services/ml_engine.py) | BERTopic, performance prediction (sklearn), weak area detection, t-SNE, knowledge graph builder |
+| [services/summarizer.py](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/backend/services/summarizer.py) | GPT summarization, key takeaways, topic list |
+
+#### Supabase Tables
+`users`, `content`, `questions`, `quizzes`, `quiz_questions`, `attempts`, `user_performance`
+
+---
+
+## Frontend — Vite React (`frontend/`)
+
+#### Design System
+**Light Mode** (default): cream bg `#FAF7F2`, terracotta primary `#C4654A`, forest green `#2D6A4F`, golden accent `#D4A054`
+**Dark Mode**: navy charcoal `#1A1A2E`, warm salmon `#E07A5F`, sage green `#52B788`, soft gold `#F2CC8F`
+**Fonts**: Inter (headings) + DM Sans (body)
+**Icons**: CSS-only shapes (circles, arrows, checkmarks via `::before`/`::after` + `border` tricks), Unicode symbols, styled text labels
+
+#### Animation Rules
+- ✅ `translateY` lift on card hover (2-4px), `box-shadow` depth change (no glow)
+- ✅ `opacity` + `translateY` for page/card entrances
+- ✅ SVG `stroke-dasharray` for progress rings
+- ✅ CSS `transform: scale()` for button press feedback
+- ✅ `animation-delay` for staggered card loading
+- ✅ Smooth `300ms` CSS variable transition for theme toggle
+- ❌ No `text-shadow` glow, no neon `box-shadow`, no pulsing/glowing keyframes
+
+#### Pages with AI/ML Features
+
+| Page | AI/ML Frontend Features |
+|------|------------------------|
+| **Dashboard** | Elo badge, performance prediction bars, weak area cards, recommended topics |
+| **Content Upload** | Complexity meter bar, auto-extracted concept tags, GPT summary preview |
+| **Quiz Generator** | BERTopic topic chips for filtering, difficulty distribution preview |
+| **Take Quiz** | Real-time Elo-based question selection, adaptive difficulty indicator |
+| **Results** | Elo change display, topic breakdown chart (Recharts), weak area analysis, improvement suggestions |
+| **Knowledge Explorer** | D3.js force graph (concepts), Plotly.js t-SNE scatter (topics) |
+| **Analytics** | Performance prediction chart, difficulty progression timeline, response-time analysis |
+| **Profile** | Elo history timeline, predicted accuracy per subject |
+
+---
+
+## Root Config
+
+| File | Purpose |
+|------|---------|
+| [.env.example](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/.env.example) | `OPENAI_API_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`, `JWT_SECRET` |
+| [pyproject.toml](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/pyproject.toml) | Updated backend deps |
+| [Dockerfile](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/Dockerfile) + [docker-compose.yml](file:///c:/Users/Radha%20Makwana/Desktop/Quiz_Generation/docker-compose.yml) | Deployment config |
+
+---
+
+## Verification Plan
+
+### Build Tests
+- `cd backend && python -m pytest tests/`
+- `cd frontend && npm run build`
+
+### Browser Tests
+- Full flow: Register → Upload → Generate → Quiz → Results → Analytics
+- Light/dark toggle
+- Knowledge graph interaction
+- Animation quality (no glow, no icon libs)

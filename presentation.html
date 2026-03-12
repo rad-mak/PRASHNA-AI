@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prashna-AI Presentation Script</title>
+    <style>
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+            background-color: #f9fafb;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.25rem;
+            color: #111827;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            color: #2563eb;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            color: #374151;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        /* Script Formatting */
+        .check-in {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0 4px 4px 0;
+            font-style: italic;
+            color: #1d4ed8;
+        }
+
+        .speaker-text {
+            font-weight: 600;
+            color: #1f2937;
+            background-color: #f3f4f6;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid #10b981;
+        }
+
+        .action-text {
+            font-style: italic;
+            color: #6b7280;
+            background: #fffbeb;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid #fde68a;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Q&A section */
+        .qa-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .qa-q {
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .qa-q::before {
+            content: "Q:";
+            color: #ef4444;
+        }
+        
+        .qa-a {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #334155;
+        }
+
+        .qa-a::before {
+            content: "A:";
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Print Specific CSS */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            /* Section breaks for cleaner printing */
+            h2 {
+                page-break-after: avoid;
+            }
+            
+            .action-text {
+                background: white;
+                border: 1px solid #d1d5db;
+                color: #4b5563;
+            }
+
+            .speaker-text {
+                background: white;
+                border: 1px solid #d1d5db;
+                border-left: 4px solid #10b981;
+            }
+            
+            /* Force page break before Appendices if desired */
+            .appendix-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prashna-AI Platform Presentation Script</h1>
+    
+    <div class="check-in">
+        <strong>Presenter Check-in:</strong> Take a deep breath! This script is designed to help you confidently show off the amazing AI features you've built into your app. Read the <strong>bold outline boxes</strong> aloud, and follow the <span style="font-family: monospace">highlighted italic text</span> for actions to take on screen.
+    </div>
+
+    <!-- Section 1 -->
+    <h2>1. The Landing Page</h2>
+    <div class="action-text">[Start on the Landing Page. Toggle the dark/light mode switch a few times to show off the UI.]</div>
+    <div class="speaker-text">
+        "Hello everyone. Today I am excited to present Prashna-AI, an intelligent, adaptive quiz engine that I've been developing. The goal of this platform is to use advanced Machine Learning and AI to convert static study materials into dynamic, personalized learning experiences."
+    </div>
+    <div class="speaker-text">
+        "As you can see, the platform features a modern, responsive design with a built-in dark and light mode toggle for better accessibility."
+    </div>
+
+    <!-- Section 2 -->
+    <h2>2. Registration & Onboarding</h2>
+    <div class="action-text">[Click 'Get Started' and navigate to the Registration page.]</div>
+    <div class="speaker-text">
+        "When a new user joins, they don't just create an account—they set up an AI profile. During registration, users select their preferred baseline difficulty, subjects of interest, and the types of questions they like to answer. This seeds our adaptive learning algorithm."
+    </div>
+    <div class="action-text">[Log into your existing developer account.]</div>
+
+    <!-- Section 3 -->
+    <h2>3. The Dashboard</h2>
+    <div class="action-text">[You are now on the Dashboard.]</div>
+    <div class="speaker-text">
+        "Welcome to the central Dashboard. At the very top, you'll see my current 'Elo Rating.' Similar to chess ranking systems, Prashna-AI constantly analyzes my performance and response times to evaluate my true skill level in real-time."
+    </div>
+    <div class="speaker-text">
+        "The Dashboard also provides instant feedback on my overall accuracy, and uses pattern analysis to highlight my 'Weak Areas' and provide personalized study recommendations."
+    </div>
+
+    <!-- Section 4 -->
+    <h2>4. Content Upload (The ML Engine at Work)</h2>
+    <div class="action-text">[Click on 'Upload Content' from the sidebar]</div>
+    <div class="speaker-text">
+        "To generate a quiz, we first need context. Users can upload raw text, fetch content directly from a URL, or upload PDF documents. Let me paste some text here."
+    </div>
+    <div class="action-text">[Paste some educational text into the box and click 'Upload & Analyze']</div>
+    <div class="speaker-text">
+        "Right now, the backend is running a complex NLP (Natural Language Processing) pipeline. It analyzes the text complexity, chunks it into semantic blocks, uses Named Entity Recognition to index key concepts, and even runs the content through an AI summarizer."
+    </div>
+    <div class="action-text">[Show the upload success screen]</div>
+    <div class="speaker-text">
+        "Here you can see the results: a complexity score, an AI-generated TL;DR summary, and the core topics automatically discovered by our clustering algorithm."
+    </div>
+
+    <!-- Section 5 -->
+    <h2>5. Quiz Generation & Adaptive Mode</h2>
+    <div class="action-text">[Click 'Generate Quiz from this Content']</div>
+    <div class="speaker-text">
+        "Now we move to the Quiz Generator. Here, I can select what types of questions I want: Multiple Choice, True/False, Fill in the Blank, or Short Answer."
+    </div>
+    <div class="speaker-text">
+        "But the standout feature here is the 'Adaptive Mode' toggle. When this is ON, the system ignores manual difficulty settings. Instead, it reads my exact Elo rating, dynamically assigns a difficulty tier, and instructs the AI to generate questions according to Bloom's Taxonomy. For example, lower Elo gets 'Recall' questions, while higher Elo gets 'Analyze and Evaluate' questions."
+    </div>
+    <div class="action-text">[Click 'Generate Quiz' and wait for it to load.]</div>
+
+    <!-- Section 6 -->
+    <h2>6. Taking the Quiz</h2>
+    <div class="action-text">[You are now on the active Quiz page. Answer a few questions.]</div>
+    <div class="speaker-text">
+        "While taking the quiz, the AI provides instant feedback. For multiple-choice questions, it uses semantic similarity models to generate highly plausible 'distractor' answers, preventing users from just guessing."
+    </div>
+    <div class="action-text">[Type a short answer to a text question.]</div>
+    <div class="speaker-text">
+        "For written short answers, we built a lenient, tiered grading algorithm. It doesn't look for an exact word-for-word string match. Instead, it measures keyword intersections and substrings, meaning if I write the core concept correctly, the AI is smart enough to mark it as correct!"
+    </div>
+    <div class="action-text">[Click Submit]</div>
+
+    <!-- Section 7 -->
+    <h2>7. Results & Real-time Evaluation</h2>
+    <div class="action-text">[You are now on the Results page]</div>
+    <div class="speaker-text">
+        "Because we utilized asynchronous background tasks on the backend, quiz submission and processing happens instantly—in less than a second."
+    </div>
+    <div class="speaker-text">
+        "Here on the results page, you can see exactly how this specific session impacted my Elo rating. My Elo goes up for correct answers, down for incorrect ones, and is weighted by the inherent difficulty of the questions I was served."
+    </div>
+
+    <!-- Section 8 -->
+    <h2>8. Advanced Analytics & Knowledge Graph</h2>
+    <div class="action-text">[Click on 'Analytics' in the sidebar]</div>
+    <div class="speaker-text">
+        "To truly track progress, we built an advanced Analytics suite. It tracks topics over time, and uses historical data to actually predict my future performance accuracy on specific subjects."
+    </div>
+    <div class="action-text">[Scroll down to the Knowledge Graph or Topic Clusters if data is populated]</div>
+    <div class="speaker-text">
+        "We even render a visual 'Knowledge Graph' mapping the relationships between concepts I've learned, and a topic cluster scatter-plot powered by dimensionality reduction algorithms like PCA (Principal Component Analysis)."
+    </div>
+
+    <!-- Section 9 -->
+    <h2>9. Admin Panel (Role-Based Access)</h2>
+    <div class="action-text">[Click on 'Admin Panel' in the sidebar]</div>
+    <div class="speaker-text">
+        "Finally, as the developer, I have access to a secure, role-based Admin Panel. This page is strictly locked down; the backend verifies the user's email token on every request, ensuring only my specific email can view this page."
+    </div>
+    <div class="speaker-text">
+        "Here, I can monitor high-level platform analytics, review flagged questions that users reported, and analyze system-wide performance, all powered by highly-optimized bulk database queries to ensure the page loads instantly even with thousands of rows."
+    </div>
+
+    <div class="speaker-text" style="border-left-color: #3b82f6; margin-top: 30px;">
+        "That concludes the tour of Prashna-AI. By combining React, FastAPI, Supabase, and advanced AI models, we've built a truly intelligent platform that adapts to the user, rather than forcing the user to adapt to the platform. Thank you!"
+    </div>
+
+    <hr style="margin: 40px 0; border: 0; border-top: 1px solid #e5e7eb;">
+
+    <!-- Appendix A -->
+    <h2 class="appendix-break">Appendix A: Project Information (What we've built)</h2>
+    <p><strong>Overview:</strong> Prashna-AI is an adaptive, AI-driven learning platform designed to generate dynamic quizzes from static uploaded content (text, PDFs, or URLs). The core objective is to move away from static testing and instead test students adaptively, matching the difficulty of the questions to their proven skill level using an Elo rating system.</p>
+    
+    <p><strong>Key Achievements:</strong></p>
+    <ul>
+        <li>Developed a fully functioning full-stack application from scratch.</li>
+        <li>Integrated a real-time Elo rating system to track user skill.</li>
+        <li>Built a multi-provider fallback AI chain (OpenAI -> Groq -> Ollama) to ensure high uptime for quiz generation.</li>
+        <li>Implemented an intelligent content processing pipeline that chunks data, analyzes complexity, discovers topics (via NLP), and summarizes.</li>
+        <li>Handled advanced UI state management, real-time feedback, and secure, role-based admin routing.</li>
+        <li>Optimized massive database retrievals, eliminating N+1 query loops to make the dashboard load instantly.</li>
+    </ul>
+
+    <!-- Appendix B -->
+    <h2>Appendix B: Feature Breakdown</h2>
+    
+    <h3>Frontend Features (React + Vite)</h3>
+    <ul>
+        <li><strong>Responsive, Modern UI:</strong> Clean, animated interface with a seamless drag-and-drop file upload, custom toggle switches, and a global Light/Dark mode.</li>
+        <li><strong>Adaptive Quiz Interface:</strong> Real-time progress bars, interactive option highlighting, and a lenient short-answer grader that understands context rather than punishing typos.</li>
+        <li><strong>Dynamic Dashboard & Analytics:</strong> Renders visual data including Elo tracking, Weak Area tagging, and performance prediction.</li>
+        <li><strong>Role-Based Access Control (RBAC):</strong> Secure routing that completely hides and blocks the Admin Panel from non-developer accounts.</li>
+    </ul>
+
+    <h3>Backend Features (FastAPI + Python)</h3>
+    <ul>
+        <li><strong>Advanced NLP Pipeline:</strong> Uses <code>spaCy</code> to extract entities and text complexity (<code>textstat</code>), and <code>BERTopic</code> / frequency analysis to discover core concepts in uploaded text.</li>
+        <li><strong>Adaptive Engine:</strong> Calculates standard Elo Rating updates instantly after every quiz, tracking historical correctness and response times.</li>
+        <li><strong>Multi-Agent LLM Generation:</strong> Sends targeted prompts using specific cognitive levels from Bloom's Taxonomy to generate tailored questions. Uses background tasks to prevent the server from hanging during intense processing.</li>
+        <li><strong>Supabase Integration & Optimization:</strong> Handles authentication natively, and uses precisely tailored bulk SQL/REST queries to fetch hundreds of attempts in a fraction of a second without event-loop blocking.</li>
+    </ul>
+
+
+    <!-- Appendix C -->
+    <h2>Appendix C: Potential Q&A with Your Coordinator</h2>
+    
+    <div class="qa-card">
+        <div class="qa-q">How does the Adaptive Mode actually work?</div>
+        <div class="qa-a">
+            <span>"When enabled, the system reads the user's current Elo Rating. If the Elo is low (<800), it forces the AI to generate 'Easy' questions focused on basic recall. If it's high (>1200), it forces 'Hard' questions focused on analysis and evaluation, based on Bloom's Taxonomy. The middle tier gets 'Medium' questions."</span>
+        </div>
+    </div>
+
+    <div class="qa-card">
+        <div class="qa-q">Why did you choose FastAPI for the backend?</div>
+        <div class="qa-a">
+            <span>"FastAPI is incredibly fast because it's built on Starlette and Pydantic. It natively supports asynchronous programming, which is crucial for an AI app where we spend a lot of time waiting for LLM network responses. It prevents the server from blocking other users."</span>
+        </div>
+    </div>
+
+    <div class="qa-card">
+        <div class="qa-q">How are you managing the AI generation if the API goes down or is slow?</div>
+        <div class="qa-a">
+            <span>"We implemented a Multi-Provider Fallback Chain. The system tries OpenAI first. If it times out or fails, it automatically falls back to Groq (which is exceptionally fast), and can even fall back to a local Ollama instance if necessary, ensuring constant uptime."</span>
+        </div>
+    </div>
+
+    <div class="qa-card">
+        <div class="qa-q">How do you handle the grading for Short Answer text questions?</div>
+        <div class="qa-a">
+            <span>"We implemented a lenient string-matching algorithm. Instead of demanding an exact character-to-character match, the grader splits both the correct answer and the user's answer into core keywords (ignoring stop words). If there is a sufficient intersection of keywords or a substring match, it marks the answer as correct. It understands the concept rather than just the exact spelling."</span>
+        </div>
+    </div>
+
+    <div class="qa-card">
+        <div class="qa-q">Did you run into any major performance issues, and how did you solve them?</div>
+        <div class="qa-a">
+            <span>"Yes, initially the Dashboard took very long to load because of an 'N+1 Query Loop'—the backend was pinging the database separately for every single quiz a user had ever taken. I refactored the data layer to fetch all attempts in a single massive bulk query, reducing the load time to under a second. I also had to convert async routes to standard thread-based routes to allow FastAPI to handle synchronous database calls efficiently."</span>
+        </div>
+    </div>
+
+    <div class="qa-card">
+        <div class="qa-q">How is the Admin Panel secured?</div>
+        <div class="qa-a">
+            <span>"It uses strict Role-Based Access Control both on the frontend and backend. The React frontend will bounce any unauthorized user back to the dashboard if they manually enter the URL. Even if they bypass the UI and hit the API directly, the FastAPI backend checks the JWT token's email payload and strictly returns a '403 Forbidden' error if the email doesn't manually match the developer account."</span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -365,6 +365,23 @@
         </div>
     </div>
 
+    <div class="qa-card">
+        <div class="qa-q">What APIs did you use in this project and how do they work?</div>
+        <div class="qa-a">
+            <span>"I used three primary third-party APIs:<br/><br/>
+            <strong>1. The Supabase API:</strong> This acts as our Backend-as-a-Service. Instead of writing raw SQL, our internal Python FastAPI calls the Supabase API to securely handle user authentication, insert new users, and store/retrieve all of the generated quizzes and relational data through REST endpoints.<br/><br/>
+            <strong>2. The Groq Cloud API:</strong> We use this as our primary inference engine for Artificial Intelligence. I POST the extracted study material and a tailored prompt to the Groq API endpoint. Groq runs an open-source model (like LLaMA-3) on incredibly fast LPU hardware and returns the generated quiz format disguised as raw JSON data, which I then parse into Python objects.<br/><br/>
+            <strong>3. The OpenAI API:</strong> This serves as both an alternative generator and our summarization engine. We send it text, and it returns high-level summaries and key-takeaways using GPT-4o."</span>
+        </div>
+    </div>
+
+    <div class="qa-card">
+        <div class="qa-q">I see a "Flagged" badge next to some questions in the Admin Panel. What does that do?</div>
+        <div class="qa-a">
+            <span>"Because the AI generates questions automatically, we added a community quality-control system just in case it makes a mistake. If a student sees a question they think is wrong or badly written, they can click a 'Flag' button to report it. Then, as the Admin, I can come to this page, see all the reported questions, and click 'Delete' to permanently remove any bad ones so no one else gets tested on them."</span>
+        </div>
+    </div>
+
 </div>
 
 </body>

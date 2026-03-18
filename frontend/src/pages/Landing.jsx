@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    PRASHNA-AI LANDING PAGE
@@ -7,6 +8,7 @@ import { Link } from 'react-router-dom';
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 export default function Landing() {
+    const { user } = useAuth();
     const [scrollY, setScrollY] = useState(0);
     const [visibleSections, setVisibleSections] = useState(new Set());
     const sectionRefs = useRef([]);
@@ -114,10 +116,18 @@ export default function Landing() {
                         <button onClick={toggleTheme} className="land-theme-toggle" aria-label="Toggle theme">
                             <span className="land-theme-icon">{darkMode ? '☀' : '☾'}</span>
                         </button>
-                        <Link to="/login" className="land-nav-link">Sign In</Link>
-                        <Link to="/register" className="btn btn-primary" style={{ padding: '8px 22px', fontSize: '0.88rem' }}>
-                            Get Started →
-                        </Link>
+                        {user ? (
+                            <Link to="/dashboard" className="btn btn-primary" style={{ padding: '8px 22px', fontSize: '0.88rem' }}>
+                                Go to Dashboard →
+                            </Link>
+                        ) : (
+                            <>
+                                <Link to="/login" className="land-nav-link">Sign In</Link>
+                                <Link to="/register" className="btn btn-primary" style={{ padding: '8px 22px', fontSize: '0.88rem' }}>
+                                    Get Started →
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>
@@ -146,8 +156,8 @@ export default function Landing() {
                         adapt to your unique learning journey — getting smarter with every answer.
                     </p>
                     <div className="land-hero-actions">
-                        <Link to="/register" className="land-cta-btn land-cta-primary">
-                            Start Learning Free
+                        <Link to={user ? "/dashboard" : "/register"} className="land-cta-btn land-cta-primary">
+                            {user ? "Go to Dashboard" : "Start Learning Free"}
                             <span className="land-cta-arrow">→</span>
                         </Link>
                         <a href="#how" className="land-cta-btn land-cta-outline">
@@ -389,8 +399,8 @@ export default function Landing() {
                         <h2>Ready to learn smarter?</h2>
                         <p>Join Prashna-AI and experience adaptive quizzes that evolve with you. Free to start, powerful from day one.</p>
                         <div className="land-hero-actions" style={{ justifyContent: 'center' }}>
-                            <Link to="/register" className="land-cta-btn land-cta-primary land-cta-big">
-                                Create Free Account
+                            <Link to={user ? "/dashboard" : "/register"} className="land-cta-btn land-cta-primary land-cta-big">
+                                {user ? "Go to Dashboard" : "Create Free Account"}
                                 <span className="land-cta-arrow">→</span>
                             </Link>
                         </div>
@@ -406,8 +416,17 @@ export default function Landing() {
                         <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.1rem' }}>Prashna-AI</span>
                     </div>
                     <div className="land-footer-links">
-                        <Link to="/login">Sign In</Link>
-                        <Link to="/register">Register</Link>
+                        {user ? (
+                            <>
+                                <Link to="/dashboard">Dashboard</Link>
+                                <Link to="/profile">Profile</Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login">Sign In</Link>
+                                <Link to="/register">Register</Link>
+                            </>
+                        )}
                         <a href="#features">Features</a>
                         <a href="#how">How It Works</a>
                     </div>

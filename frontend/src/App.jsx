@@ -37,7 +37,8 @@ function AppRoutes() {
     return (
         <Routes>
             {/* Public routes */}
-            <Route path="/welcome" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/welcome" element={<Navigate to="/" replace />} />
             <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
             <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <Register />} />
 
@@ -51,8 +52,7 @@ function AppRoutes() {
             <Route path="/profile" element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
             <Route path="/admin" element={<AdminRoute><Layout><Admin /></Layout></AdminRoute>} />
 
-            {/* Default: landing if not logged in, dashboard if logged in */}
-            <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Navigate to="/welcome" replace />} />
+            {/* Default fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );

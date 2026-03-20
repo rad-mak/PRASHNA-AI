@@ -8,6 +8,8 @@
 
 **An End-to-End AI Ecosystem for Automated Content Synthesis and Cognitive Retention.**
 
+### 🌐 [Live Demo → https://prashna-ai-j73q.onrender.com](https://prashna-ai-j73q.onrender.com)
+
 </div>
 
 ---

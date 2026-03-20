@@ -61,6 +61,11 @@ app.include_router(quiz.router, prefix="/api/quiz", tags=["Quiz"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 
+# Health check — MUST be above the catch-all route so the keep-alive ping works
+@app.get("/api/health")
+async def health_check():
+    return {"status": "healthy", "service": "prashna-ai"}
+
 
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
@@ -101,7 +106,3 @@ else:
             "note": "Frontend static files not found. Run 'npm run build' in frontend directory to serve."
         }
 
-
-@app.get("/api/health")
-async def health_check():
-    return {"status": "healthy", "service": "prashna-ai"}

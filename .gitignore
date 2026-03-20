@@ -29,3 +29,9 @@ Thumbs.db
 # Database
 *.db
 *.sqlite3
+
+# PDFs / Scripts
+*.pdf
+
+# Virtual environments
+venv/

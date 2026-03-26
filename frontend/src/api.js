@@ -28,7 +28,7 @@ class ApiService {
         }
 
         // Longer timeout for AI-heavy endpoints, shorter for quick lookups
-        const isSlowEndpoint = endpoint.includes('/quiz/generate') || endpoint.includes('/content/upload') || endpoint.includes('/content/url');
+        const isSlowEndpoint = endpoint.includes('/quiz/generate') || endpoint.includes('/content/upload') || endpoint.includes('/content/url') || endpoint.includes('/auth/register') || endpoint.includes('/auth/login');
         const timeoutMs = isSlowEndpoint ? 120000 : 15000;
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeoutMs);

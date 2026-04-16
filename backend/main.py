@@ -10,22 +10,49 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from backend.routes import auth, content, quiz, analytics, admin
+from backend.config import SUPABASE_URL, SUPABASE_KEY
 
-# Keep-alive ping to prevent Render free tier from sleeping
-async def ping_server():
+KEEP_ALIVE_INTERVAL = 240  # 4 minutes (Render sleeps after ~15 min of inactivity)
+
+
+async def _ping_render():
+    """Self-ping the Render service to prevent it from sleeping."""
+    url = os.environ.get("RENDER_EXTERNAL_URL")
+    if not url:
+        return
+    try:
+        urllib.request.urlopen(f"{url}/api/health", timeout=10)
+        print(f"[keep-alive] Render ping OK ({url})", flush=True)
+    except Exception as e:
+        print(f"[keep-alive] Render ping failed: {e}", flush=True)
+
+
+async def _ping_supabase():
+    """Ping the Supabase REST API to keep the free-tier project active."""
+    if not SUPABASE_URL:
+        return
+    try:
+        req = urllib.request.Request(
+            f"{SUPABASE_URL}/rest/v1/",
+            headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+        )
+        urllib.request.urlopen(req, timeout=10)
+        print("[keep-alive] Supabase ping OK", flush=True)
+    except Exception as e:
+        print(f"[keep-alive] Supabase ping failed: {e}", flush=True)
+
+
+async def keep_alive_loop():
+    """Background loop that pings both Render and Supabase every few minutes."""
     while True:
-        await asyncio.sleep(600)  # 10 minutes
-        url = os.environ.get("RENDER_EXTERNAL_URL")
-        if url:
-            try:
-                urllib.request.urlopen(f"{url}/api/health")
-                print(f"[{url}] Keep-alive ping sent", flush=True)
-            except Exception as e:
-                print(f"[{url}] Keep-alive ping failed: {e}", flush=True)
+        await asyncio.sleep(KEEP_ALIVE_INTERVAL)
+        await _ping_render()
+        await _ping_supabase()
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    task = asyncio.create_task(ping_server())
+    task = asyncio.create_task(keep_alive_loop())
     yield
     task.cancel()
 
@@ -49,9 +76,24 @@ app.add_middleware(
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     traceback.print_exc()
+    # Database / network connectivity errors → 503
+    import httpx as _httpx
+    if isinstance(exc, (RuntimeError,)) and "unavailable" in str(exc).lower():
+        return JSONResponse(
+            status_code=503,
+            content={"detail": str(exc)},
+        )
+    if isinstance(exc, (_httpx.ConnectError, _httpx.TimeoutException)):
+        return JSONResponse(
+            status_code=503,
+            content={
+                "detail": "Database service is temporarily unavailable. "
+                "Please try again in a few moments."
+            },
+        )
     return JSONResponse(
         status_code=500,
-        content={"detail": str(exc) or "Internal server error"},
+        content={"detail": "Internal server error. Please try again later."},
     )
 
 # Mount route modules

@@ -8,6 +8,23 @@ import httpx
 from backend.config import SUPABASE_URL, SUPABASE_KEY
 
 
+DB_UNAVAILABLE_MSG = (
+    "Database service is temporarily unavailable. "
+    "Please check your internet connection and try again in a few moments."
+)
+
+
+def _handle_request_error(exc: Exception):
+    """Convert httpx network errors into a clear RuntimeError."""
+    if isinstance(exc, httpx.ConnectError):
+        raise RuntimeError(DB_UNAVAILABLE_MSG) from exc
+    if isinstance(exc, httpx.TimeoutException):
+        raise RuntimeError(
+            "Database request timed out. Please try again."
+        ) from exc
+    raise
+
+
 class SupabaseTable:
     """Lightweight wrapper around Supabase PostgREST API."""
 
@@ -72,8 +89,11 @@ class SupabaseTable:
     def execute(self):
         """Execute a GET (select) query."""
         params = self._build_params()
-        resp = httpx.get(self.url, headers=self.headers, params=params, timeout=30)
-        resp.raise_for_status()
+        try:
+            resp = httpx.get(self.url, headers=self.headers, params=params, timeout=30)
+            resp.raise_for_status()
+        except (httpx.ConnectError, httpx.TimeoutException) as exc:
+            _handle_request_error(exc)
         return _Result(resp.json())
 
     def insert(self, data):
@@ -87,8 +107,11 @@ class SupabaseTable:
                 self._payload = payload
 
             def execute(self_inner):
-                resp = httpx.post(self_inner._url, headers=self_inner._headers, json=self_inner._payload, timeout=30)
-                resp.raise_for_status()
+                try:
+                    resp = httpx.post(self_inner._url, headers=self_inner._headers, json=self_inner._payload, timeout=30)
+                    resp.raise_for_status()
+                except (httpx.ConnectError, httpx.TimeoutException) as exc:
+                    _handle_request_error(exc)
                 return _Result(resp.json())
 
         return _Insertable(c.url, c.headers, data)
@@ -125,8 +148,11 @@ class _UpdatableChain(SupabaseTable):
         params = {}
         for col, op, val in self._filters:
             params[col] = f"{op}.{val}"
-        resp = httpx.patch(self.url, headers=self.headers, json=self._update_data, params=params, timeout=30)
-        resp.raise_for_status()
+        try:
+            resp = httpx.patch(self.url, headers=self.headers, json=self._update_data, params=params, timeout=30)
+            resp.raise_for_status()
+        except (httpx.ConnectError, httpx.TimeoutException) as exc:
+            _handle_request_error(exc)
         return _Result(resp.json())
 
 
@@ -137,8 +163,11 @@ class _DeletableChain(SupabaseTable):
         params = {}
         for col, op, val in self._filters:
             params[col] = f"{op}.{val}"
-        resp = httpx.delete(self.url, headers=self.headers, params=params, timeout=30)
-        resp.raise_for_status()
+        try:
+            resp = httpx.delete(self.url, headers=self.headers, params=params, timeout=30)
+            resp.raise_for_status()
+        except (httpx.ConnectError, httpx.TimeoutException) as exc:
+            _handle_request_error(exc)
         return _Result(resp.json())
 
 
@@ -190,15 +219,21 @@ class _SmartTable(SupabaseTable):
             params = {}
             for col, op, val in self._filters:
                 params[col] = f"{op}.{val}"
-            resp = httpx.patch(self.url, headers=self.headers, json=self._pending_update, params=params, timeout=30)
-            resp.raise_for_status()
+            try:
+                resp = httpx.patch(self.url, headers=self.headers, json=self._pending_update, params=params, timeout=30)
+                resp.raise_for_status()
+            except (httpx.ConnectError, httpx.TimeoutException) as exc:
+                _handle_request_error(exc)
             return _Result(resp.json())
         elif hasattr(self, '_pending_delete'):
             params = {}
             for col, op, val in self._filters:
                 params[col] = f"{op}.{val}"
-            resp = httpx.delete(self.url, headers=self.headers, params=params, timeout=30)
-            resp.raise_for_status()
+            try:
+                resp = httpx.delete(self.url, headers=self.headers, params=params, timeout=30)
+                resp.raise_for_status()
+            except (httpx.ConnectError, httpx.TimeoutException) as exc:
+                _handle_request_error(exc)
             return _Result(resp.json())
         else:
             return super().execute()
